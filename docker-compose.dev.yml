@@ -1,0 +1,15 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      # En Windows/WLS a veces hace falta polling para los watchers
+      WATCHPACK_POLLING: "true"
+    volumes:
+      - .:/app                # montá tu repo dentro del contenedor
+      - /app/node_modules     # "volumen anónimo" para que no pise node_modules
+    command: npm run start:dev

@@ -1,0 +1,12 @@
+FROM node:20-alpine
+WORKDIR /app
+
+# instalá solo lo mínimo global si querés (opcional)
+# RUN npm i -g @nestjs/cli
+
+# copiamos solo package*.json para cachear installs cuando cambien deps
+COPY package*.json ./
+RUN npm install
+
+# el código lo montamos como volumen (ver compose)
+CMD ["npm", "run", "start:dev"]
