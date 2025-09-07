@@ -1,9 +1,13 @@
 # Subscripciones API 🍀 Proyecto base en **NestJS** para practicar un sistema de subscripciones. Incluye configuración de **TypeScript estricto**, validación con DTOs y setup de calidad de código con **Prettier**, **ESLint**, **Husky** y **lint-staged**. --- ## 🚀 Levantar el proyecto
+
 bash
+
 # Instalar dependencias
+
 npm install
 
 # Development mode
+
 npm run start:dev
 Endpoint de prueba: http://localhost:3000/health
 
@@ -28,13 +32,13 @@ En tsconfig.json se activó modo estricto:
 json
 Copiar código
 {
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noUncheckedIndexedAccess": true,
-    "noFallthroughCasesInSwitch": true
-  }
+"compilerOptions": {
+"strict": true,
+"noImplicitAny": true,
+"strictNullChecks": true,
+"noUncheckedIndexedAccess": true,
+"noFallthroughCasesInSwitch": true
+}
 }
 🧹 Prettier
 Formateador automático de código.
@@ -44,11 +48,11 @@ Formateador automático de código.
 json
 Copiar código
 {
-  "printWidth": 100,
-  "singleQuote": true,
-  "trailingComma": "all",
-  "semi": true,
-  "arrowParens": "always"
+"printWidth": 100,
+"singleQuote": true,
+"trailingComma": "all",
+"semi": true,
+"arrowParens": "always"
 }
 .prettierignore:
 
@@ -81,27 +85,27 @@ import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default tseslint.config(
-  { ignores: ['dist', 'coverage'] },
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  prettierRecommended,
-  {
-    plugins: { 'simple-import-sort': simpleImportSort },
-    languageOptions: {
-      globals: { ...globals.node, ...globals.jest },
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname
-      }
-    },
-    rules: {
-      'simple-import-sort/imports': 'warn',
-      'simple-import-sort/exports': 'warn',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn',
-      '@typescript-eslint/no-explicit-any': 'off'
-    }
-  }
+{ ignores: ['dist', 'coverage'] },
+eslint.configs.recommended,
+...tseslint.configs.recommendedTypeChecked,
+prettierRecommended,
+{
+plugins: { 'simple-import-sort': simpleImportSort },
+languageOptions: {
+globals: { ...globals.node, ...globals.jest },
+parserOptions: {
+projectService: true,
+tsconfigRootDir: import.meta.dirname
+}
+},
+rules: {
+'simple-import-sort/imports': 'warn',
+'simple-import-sort/exports': 'warn',
+'@typescript-eslint/no-floating-promises': 'warn',
+'@typescript-eslint/no-unsafe-argument': 'warn',
+'@typescript-eslint/no-explicit-any': 'off'
+}
+}
 );
 🐶 Husky + lint-staged
 Instalación:
@@ -115,7 +119,7 @@ Reemplazar el contenido con:
 sh
 Copiar código
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+. "$(dirname -- "$0")/\_/husky.sh"
 
 npx lint-staged
 package.json → sección lint-staged:
@@ -123,10 +127,10 @@ package.json → sección lint-staged:
 json
 Copiar código
 "lint-staged": {
-  "*.{ts,tsx,js,json,md}": [
-    "prettier --write",
-    "eslint --fix --max-warnings=0"
-  ]
+"\*.{ts,tsx,js,json,md}": [
+"prettier --write",
+"eslint --fix --max-warnings=0"
+]
 }
 Resultado: antes de cada commit se ejecuta Prettier + ESLint solo sobre archivos staged.
 
@@ -136,33 +140,33 @@ Archivo: .vscode/settings.json
 json
 Copiar código
 {
-  "editor.formatOnSave": false,
-  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
-  "eslint.validate": ["typescript", "javascript"],
-  "eslint.experimental.useFlatConfig": true,
-  "eslint.alwaysShowStatus": true
+"editor.formatOnSave": false,
+"editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+"eslint.validate": ["typescript", "javascript"],
+"eslint.experimental.useFlatConfig": true,
+"eslint.alwaysShowStatus": true
 }
 Con esto, al guardar (Ctrl+S), VSCode corre ESLint Fix (y Prettier desde el plugin de ESLint).
 
 🛠️ Scripts útiles
 bash
 Copiar código
-npm run start:dev    # levantar NestJS en modo desarrollo
-npm run lint         # revisar errores/warnings
-npm run lint:fix     # aplicar fixes (ESLint + Prettier)
-npm run format       # aplicar Prettier a todo el repo
+npm run start:dev # levantar NestJS en modo desarrollo
+npm run lint # revisar errores/warnings
+npm run lint:fix # aplicar fixes (ESLint + Prettier)
+npm run format # aplicar Prettier a todo el repo
 npm run format:check # verificar formato sin modificar archivos
 ✅ Checklist del setup
- Proyecto NestJS creado con npx @nestjs/cli.
+Proyecto NestJS creado con npx @nestjs/cli.
 
- TypeScript en modo estricto.
+TypeScript en modo estricto.
 
- Prettier configurado (.prettierrc, .prettierignore).
+Prettier configurado (.prettierrc, .prettierignore).
 
- ESLint con Flat Config (eslint.config.mjs).
+ESLint con Flat Config (eslint.config.mjs).
 
- Plugin simple-import-sort para ordenar imports.
+Plugin simple-import-sort para ordenar imports.
 
- Husky + lint-staged con hook de pre-commit.
+Husky + lint-staged con hook de pre-commit.
 
- Configuración de VSCode en .vscode/settings.json.
+Configuración de VSCode en .vscode/settings.json.
