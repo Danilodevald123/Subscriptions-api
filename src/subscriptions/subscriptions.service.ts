@@ -22,6 +22,16 @@ export class SubscriptionsService {
     const plan = this.plans.findOne(dto.planId);
     if (!plan.active) throw new BadRequestException('Plan is not active');
 
+    // Rule : only 1 active subscription for --->> userId --->> planId.
+
+    const existing = this.subs.find(
+      (s) =>
+        s.userId === dto.userId &&
+        s.planId === dto.planId &&
+        s.status === SubscriptionStatus.ACTIVE,
+    );
+    if (existing) return existing;
+
     const sub: Subscription = {
       id: randomUUID(),
       userId: dto.userId,
